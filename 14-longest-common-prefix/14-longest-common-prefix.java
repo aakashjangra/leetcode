@@ -22,9 +22,9 @@ class Solution {
         }
         
        String result = "";
-        if(index <= 0){
-            return "";
-        }
+        // if(index <= 0){
+        //     return "";
+        // }
         String str = strs[0];
         for(int i =0; i<index; i++){
             result += str.charAt(i);
