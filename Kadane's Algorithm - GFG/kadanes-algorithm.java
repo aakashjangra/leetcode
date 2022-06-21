@@ -45,6 +45,7 @@ class Solution{
             if(max < positive_sum_till_now)
                 max = positive_sum_till_now;
             
+            //restart counting sum
             if(positive_sum_till_now < 0)
                 positive_sum_till_now = 0;
         }
