@@ -46,11 +46,11 @@ class Solution
     {
         //Your code here
         if(N == 1){
-            System.out.print(N+" ");
+            System.out.print(N);
             return;
         }
         printNos(N - 1);
-        System.out.print(N+" ");
+        System.out.print(" "+N);
         
     }
 }
