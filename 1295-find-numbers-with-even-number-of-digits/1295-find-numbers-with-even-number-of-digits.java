@@ -8,7 +8,6 @@ class Solution {
             if(s.length()%2 == 0){
                 ans++;
             }
-            
         }
         
         return ans;
