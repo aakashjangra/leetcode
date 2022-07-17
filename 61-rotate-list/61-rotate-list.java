@@ -28,10 +28,7 @@ class Solution {
         
         ListNode prev = head;
         
-        while(k > length){
-            k = k - length;
-        }
-        
+        k = k % length;
         for(int i = 1; i<=length-k-1; i++){
             prev = prev.next;
         }
