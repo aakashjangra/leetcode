@@ -6,11 +6,8 @@ class Solution {
         
         for(int a: nums){
             hm.put(a, hm.getOrDefault(a, 0)+1);
-        }
-        
-        for(Map.Entry<Integer, Integer> entry: hm.entrySet()){
-            if(entry.getValue() > n/2){
-                answer = entry.getKey();
+            if(hm.get(a) > n/2){
+                return a;
             }
         }
         
