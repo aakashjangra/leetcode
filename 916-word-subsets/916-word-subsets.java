@@ -1,8 +1,7 @@
 class Solution {
     public int[] countCharacters(String s){
         int []arr = new int[26];
-            for(int i = 0; i<s.length(); i++){
-                char c = s.charAt(i);
+            for(char c: s.toCharArray()){
                 arr[c-'a']++;
             }
         return arr;
