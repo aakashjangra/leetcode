@@ -12,7 +12,9 @@ class Solution {
         int count = 1;
         while(minHeap.isEmpty() == false){
             int curr = minHeap.poll();
-            if(curr == prev+1 || curr == prev){
+            if(curr == prev)
+                continue;
+            if(curr == prev+1){
                 if(curr == prev+1)
                     count++;
             }
