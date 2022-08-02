@@ -15,8 +15,7 @@ class Solution {
             if(curr == prev)
                 continue;
             if(curr == prev+1){
-                if(curr == prev+1)
-                    count++;
+                count++;
             }
             else     
                 count = 1;
