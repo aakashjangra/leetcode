@@ -18,6 +18,9 @@ class Solution {
         if(root != null){
             int l = heightOfTree(root.left, height + 1);
             int r = heightOfTree(root.right, height + 1);
+            if(Math.abs(l-r) > 1){
+                l = 5001;
+            }
             return Math.max(l, r);
         }
         return height;
@@ -26,12 +29,6 @@ class Solution {
         if(root == null)
             return true;
         
-        
-        
-        int l = heightOfTree(root.left, 0);
-        int r = heightOfTree(root.right, 0);
-        
-        return Math.abs(l-r) <= 1 && isBalanced(root.left) &&
-        isBalanced(root.right);
+        return heightOfTree(root, 0) == 5001? false: true;
     }
 }
