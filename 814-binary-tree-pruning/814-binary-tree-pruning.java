@@ -14,30 +14,12 @@
  * }
  */
 class Solution {
-    public boolean helper(TreeNode root){
-        if(root != null){
-            boolean curr = root.val == 1;
-            boolean l = helper(root.left);
-            boolean r = helper(root.right);
-            
-            if(!curr && !l && !r){
-                return false;
-            }
-           
-            if(l == false)
-                root.left = null;
-            
-            if(r == false)
-                root.right = null;
-            
-            return true;
-        }
-            
-        return false;
-    }   
-    
     public TreeNode pruneTree(TreeNode root) {
-        boolean ifroot = helper(root);
-        return ifroot? root: null;
+        if(root == null)
+            return null;
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+        
+        return (root.val == 0 && root.left == null && root.right == null)? null: root;
     }    
 }
