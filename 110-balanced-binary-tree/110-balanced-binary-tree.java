@@ -19,16 +19,14 @@ class Solution {
             int l = heightOfTree(root.left, height + 1);
             int r = heightOfTree(root.right, height + 1);
             if(Math.abs(l-r) > 1){
-                l = 5001;
+                l = Integer.MAX_VALUE;
             }
             return Math.max(l, r);
         }
         return height;
     }
     public boolean isBalanced(TreeNode root) {
-        if(root == null)
-            return true;
         
-        return heightOfTree(root, 0) == 5001? false: true;
+        return heightOfTree(root, 0) == Integer.MAX_VALUE? false: true;
     }
 }
