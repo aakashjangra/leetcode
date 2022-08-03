@@ -25,13 +25,14 @@ class Solution {
         fillStack(root, st);
         root = st.pop();
         TreeNode temp = root;
-        while(st.size() != 0){
-            temp.left = null;
+        while(st.size() != 0){  
             temp.right = st.peek();
+            temp.left = null;
             temp = st.pop();
         }
-        temp.right = null;
         temp.left = null;
+        temp.right = null;
+
         return root;
     }
 }
