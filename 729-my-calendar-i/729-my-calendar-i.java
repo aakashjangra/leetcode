@@ -1,22 +1,20 @@
 class MyCalendar {
-    HashMap<Integer, Integer> calendar;
+    TreeMap<Integer, Integer> calendar;
     public MyCalendar() {
-        calendar = new HashMap<>();
+        calendar = new TreeMap<>();
     }
     
     public boolean book(int start, int end) {
 
-        for(int key: calendar.keySet()){
-            if(start <= key && calendar.get(key) <= end)
-                return false;
-            if(key < start && start < calendar.get(key))
-                return false;
-            if(key < end && end < calendar.get(key))
-                return false;
-        }
+        Integer prev = calendar.floorKey(start),
+        next = calendar.ceilingKey(start);
         
+        if((prev == null || calendar.get(prev) <= start) && (next == null  || end <= next)){
             calendar.put(start, end);
             return true;
+        }
+            
+        return false;
     }
     
 }
