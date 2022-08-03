@@ -14,25 +14,22 @@
  * }
  */
 class Solution {
-    private void fillStack(TreeNode root, Stack<TreeNode> st){
+    private void getVals(TreeNode root, List<Integer> list){
         if(root == null) return;
-        fillStack(root.right, st);
-        st.push(root);
-        fillStack(root.left, st);
+        getVals(root.left, list);
+        list.add(root.val);
+        getVals(root.right, list);
     }
     public TreeNode increasingBST(TreeNode root) {
-        Stack<TreeNode> st = new Stack<>();
-        fillStack(root, st);
-        root = st.pop();
-        TreeNode temp = root;
-        while(st.size() != 0){  
-            temp.right = st.peek();
-            temp.left = null;
-            temp = st.pop();
+        ArrayList<Integer> list = new ArrayList<>();
+        getVals(root, list);
+        
+        TreeNode temp = root = new TreeNode(0);
+        for(int a: list){
+            temp.right = new TreeNode(a);
+            temp = temp.right;
         }
-        temp.left = null;
-        temp.right = null;
 
-        return root;
+        return root.right;
     }
 }
