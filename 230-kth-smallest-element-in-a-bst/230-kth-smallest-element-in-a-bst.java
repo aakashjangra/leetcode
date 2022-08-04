@@ -19,7 +19,6 @@ class Solution {
         if(root == null)  return -1;
         int left = kthSmallest(root.left, k);
         counter++;
-        if(left > -1)    return left;
         if(k == counter)
             return root.val;
         int right = kthSmallest(root.right, k);
