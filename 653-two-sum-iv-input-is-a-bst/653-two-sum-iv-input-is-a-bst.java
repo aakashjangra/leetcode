@@ -16,8 +16,15 @@
 class Solution {
     public boolean search(TreeNode root, TreeNode curr, int value){
         if(root == null) return false;
+        if(curr != root){
+            if(root.val == value)
+            return true;
+            if(root.val < value)
+            return search(root.right, curr, value);
+            return search(root.left, curr, value);
+        }
         
-        return (curr != root && root.val == value) || search(root.left, curr, value) || search(root.right, curr, value);
+        return false;
     }
     public boolean helper(TreeNode root, TreeNode curr, int k){
         
