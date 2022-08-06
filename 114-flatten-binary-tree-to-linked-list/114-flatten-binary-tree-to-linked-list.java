@@ -14,22 +14,17 @@
  * }
  */
 class Solution {
-    private void preorder(TreeNode root, Queue<TreeNode> q){
-        if(root == null)    return;
-        q.offer(root);
-        preorder(root.left, q);
-        preorder(root.right, q);
-    }
-    public void flatten(TreeNode root) {
-        
-        Queue<TreeNode> q = new LinkedList<>();
-        preorder(root, q);
-        
-        while(q.size() > 0){
-            TreeNode curr = q.poll();
-            curr.left = null;
-            curr.right = q.peek();
-        }
+    private TreeNode prev = null;
     
+    public void flatten(TreeNode root) {
+        if(root == null)    return;
+        
+        flatten(root.right);
+        flatten(root.left);
+        
+        root.left = null;
+        root.right = prev;
+        
+        prev = root;
     }
 }
