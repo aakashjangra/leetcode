@@ -23,6 +23,7 @@ class Solution {
         storeGreaterSum(root.left);
     }
     public TreeNode bstToGst(TreeNode root) {
+        sum = 0;
         storeGreaterSum(root);
         return root;
     }
