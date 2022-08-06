@@ -5,17 +5,17 @@ class Solution {
         int j = 0; 
         int maxC = 0;
         int ans = 0;
-        HashMap<Character, Integer> freq = new HashMap<>();
+        int []freq = new int[26];
         
         while(j < n){
             char charj = s.charAt(j);
-            freq.put(charj, freq.getOrDefault(charj, 0) + 1);
-            maxC = Math.max(maxC, freq.get(charj));
+            freq[charj-'A']++;
+            maxC = Math.max(maxC, freq[charj-'A']);
             int curLen = j - i + 1;
             
             if(curLen - maxC > k){
                 char chari = s.charAt(i);
-                freq.put(chari, freq.get(chari)-1);
+                freq[chari-'A']--;
                 i++;
             }
             curLen = j - i + 1;
