@@ -11,7 +11,7 @@ class Solution {
         int back = n - 1;
         
         while(front < back){
-            char charf = s.charAt(front);
+          
             while(front < n-1 && alphaNumeric(s.charAt(front)) == false)
                 front++;
             
