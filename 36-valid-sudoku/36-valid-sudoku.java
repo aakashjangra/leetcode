@@ -59,6 +59,8 @@ class Solution {
     }
 
     public boolean isValidSudoku(char[][] board) {
+        
         return validRows(board) && validCols(board) && validSubs(board);
+        
     }
 }
