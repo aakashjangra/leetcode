@@ -11,11 +11,11 @@ class Solution {
         int back = n - 1;
         
         while(front < back){
-        
-            while(front < n-1 && !Character.isLetterOrDigit(s.charAt(front)))
+            char charf = s.charAt(front);
+            while(front < n-1 && alphaNumeric(s.charAt(front)) == false)
                 front++;
             
-            while(back > 0 && !Character.isLetterOrDigit(s.charAt(back)))
+            while(back > 0 && alphaNumeric(s.charAt(back)) == false)
                 back--;
             
             if(front > back)
