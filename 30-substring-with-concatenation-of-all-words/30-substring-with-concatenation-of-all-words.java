@@ -12,23 +12,32 @@ class Solution {
         int subsLen = wordLen * wordCount;
         
         int n = s.length();
+        HashMap<String, Integer> curMap = new HashMap<>(map);
+        int count = 0;
+        int i = 0;
+        int j = 0;
         
-        for(int i = 0; i <= n-subsLen; i++){
-            HashMap<String, Integer> curMap = new HashMap<>(map);
-            int count = 0;
-            
-            for(int j = i; j < i+subsLen; j += wordLen){
-                String curWord = s.substring(j, j+wordLen);
-                if(curMap.getOrDefault(curWord, 0) != 0){
-                    curMap.put(curWord, curMap.get(curWord) - 1);
-                    count++;
-                } else {
-                    break;
-                }
+        while(j <= n-wordLen){
+            String sub = s.substring(j, j+wordLen);
+    
+            if(curMap.getOrDefault(sub, 0) != 0){
+                 curMap.put(sub, curMap.get(sub) - 1);
+                 count++;
+            } else {
+                i = i + 1;
+                j = i;
+                curMap = new HashMap<>(map);
+                count = 0;
             }
             
             if(count == wordCount){
                 list.add(i);
+                j = i = i + 1;
+                j = i;
+                curMap = new HashMap<>(map);
+                count = 0;
+            } else if(count != 0){
+                j = j + wordLen;
             }
         }
 
