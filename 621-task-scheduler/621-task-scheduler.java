@@ -1,17 +1,36 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
-        int[] freq = new int[26];
-        int max_freq = 0;
+        
+        HashMap<Character, Integer> freq = new HashMap<>();
         for(char c: tasks){
-            max_freq = Math.max(max_freq, ++freq[c-'A']);
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
         }
         
-        max_freq--;
-        int idle_slots = (max_freq * n) + max_freq;
-        for(int i = 0; i<26; i++){
-            idle_slots -= Math.min(freq[i], max_freq);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder()); 
+        maxHeap.addAll(freq.values());
+        
+        int time = 0;
+        while(maxHeap.size() > 0){
+            ArrayList<Integer> add_back = new ArrayList<>();
+            for(int i = 0;i<=n; i++){
+    
+                if(maxHeap.size() > 0){
+                    int count = maxHeap.poll();
+                    count--;
+                    if(count > 0){
+                        add_back.add(count);
+                    }    
+                }   
+                 
+                    time++;
+                
+                    if(maxHeap.size() == 0 && add_back.size() == 0)
+                        break;
+            }
+               
+            maxHeap.addAll(add_back);            
         }
         
-        return idle_slots > 0? idle_slots + tasks.length: tasks.length;
+        return time;
     }
 }
