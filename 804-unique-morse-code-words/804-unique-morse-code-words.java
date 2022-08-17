@@ -3,18 +3,16 @@ class Solution {
 
         String[] table = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
         
-        int transformations = 0;
-        Set<String> set = new HashSet<>();
+        Set<String> transformations = new HashSet<>();
         for(String str: words){
             int n = str.length();
-            String cur_code = "";
+            StringBuilder cur_code = new StringBuilder();
             for(int i = 0; i<n; i++){
-                cur_code += table[str.charAt(i) - 'a'];
+                cur_code.append(table[str.charAt(i) - 'a']);
             }
-            if(set.add(cur_code))
-                transformations++;
+            transformations.add(cur_code.toString());
         }
         
-        return transformations;
+        return transformations.size();
     }
 }
