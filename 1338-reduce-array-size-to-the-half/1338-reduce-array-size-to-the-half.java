@@ -5,20 +5,21 @@ class Solution {
         for(int a: arr){
             map.put(a, map.getOrDefault(a, 0) + 1);
         }
-        int values[] = new int[map.size()];
-        int idx = 0;
-        for(int a: map.values()){
-            values[idx] = a;
-            idx++;
+        
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b) -> b - a);
+        for(int freq: map.values()){
+            maxHeap.add(freq);
         }
-        Arrays.sort(values);
+       
         int count = 0;
-        for(int i = values.length-1; i>=0; i--){
-            count += values[i];
-            if(count >= n/2)
-                return values.length-i;
+        int elems = 0;
+        while(maxHeap.size() > 0){
+            elems += maxHeap.poll();
+            count++;
+            if(elems >= n/2)
+                return count;
         }
         
-        return -1;
+        return count;
     }
 }
