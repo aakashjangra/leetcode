@@ -9,11 +9,7 @@ class Solution {
                 return false;
             freq[ransomNote.charAt(i) - 'a']--;
         }
-        
-        for(int a: freq){
-            if(a < 0)
-                return false;
-        }
+     
         return true;
     }
 }
