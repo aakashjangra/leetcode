@@ -25,6 +25,6 @@ class Solution {
         return count + helper(root.left, Math.max(max, root.val)) + helper(root.right, Math.max(max, root.val));
     }
     public int goodNodes(TreeNode root) {
-        return helper(root, -10001);
+        return helper(root, root.val);
     }
 }
