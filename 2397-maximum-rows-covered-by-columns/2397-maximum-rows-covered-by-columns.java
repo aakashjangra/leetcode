@@ -1,39 +1,41 @@
 class Solution {
     private int maxR = 0;
     
-    private int countRows(int[][] mat, Set<Integer> selected){
+    private int countRows(int[][] mat, Set<Integer> unSelected){
         int r = mat.length;
         int c = mat[0].length;
         int covered = r;
         
+        // System.out.println(unSelected);
         for(int i = 0; i<r; i++){
-            boolean nSafe = false;
-            for(int j = 0; j<c; j++){
-                if(!selected.contains(j) && mat[i][j] == 1)
-                    nSafe = true;
+            for(int j: unSelected){
+                // System.out.print(j+" ");
+                if(mat[i][j] == 1){
+                    // System.out.println("Y");
+                    covered--;
+                    break;
+                }
+                // System.out.println();
             }
-            if(nSafe)
-                covered--;
         }
         
         return covered;
     }
         
-    private void choices(int cur, int[][] mat, int cols, Set<Integer> selected){
-        if(selected.size() > cols)
+    private void choices(int cur, int[][] mat, int cols, Set<Integer> unSelected){
+        if(mat[0].length-unSelected.size() > cols)
             return;
         
-        if(selected.size() == cols){
-            maxR = Math.max(maxR, countRows(mat, selected));
-            return;
+        if(mat[0].length-unSelected.size() == cols){
+            maxR = Math.max(maxR, countRows(mat, unSelected));
         }
         
         for(int i = cur; i<mat[0].length; i++){
-            selected.add(i);
+            unSelected.remove(i);
             
-            choices(i+1, mat, cols, selected);
+            choices(i+1, mat, cols, unSelected);
             
-            selected.remove(i);
+            unSelected.add(i);
         }
     }
     
@@ -44,9 +46,10 @@ class Solution {
         if(cols == c)   return r;
         
         maxR = 0;
-        Set<Integer> selected = new HashSet<>(); 
+        Set<Integer> unSelected = new HashSet<>(); 
+        for(int i = 0; i<c; i++)    unSelected.add(i);
         
-        choices(0, mat, cols, selected);
+        choices(0, mat, cols, unSelected);
         
         return maxR;
     }
