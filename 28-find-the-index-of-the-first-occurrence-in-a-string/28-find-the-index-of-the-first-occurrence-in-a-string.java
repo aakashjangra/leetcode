@@ -31,11 +31,6 @@ class Solution {
         int sp = 0; //string pointer
         int pp = 0; //pattern pointer
         
-        // for(int  a: lps){
-        //     System.out.print(a+" ");
-        // }
-        // System.out.println();
-        
         while(sp < n){
             if(haystack.charAt(sp) == needle.charAt(pp)){
                 sp++;
