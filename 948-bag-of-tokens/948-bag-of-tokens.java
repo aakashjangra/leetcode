@@ -14,11 +14,13 @@ class Solution {
         int r = n-1;
         
         while(l < r){
-            if(power >= tokens[l]){
+            
+            while(l < r && power >= tokens[l]){
                 score++;
                 power -= tokens[l];
                 l++;
-            } else {
+            }
+            if(l < r){
                 score--;
                 power += tokens[r];
                 r--;
