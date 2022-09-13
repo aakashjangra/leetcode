@@ -1,7 +1,7 @@
 class Solution {
 
     private int calcMSBs(int num){
-        int mask = 128; // 1st bit is set only
+        int mask = 1<<7; // 1st bit is set only
             // 1 0 0 0 0 0 0 0 
         int count = 0; //no. of most significant bits which are set
       
