@@ -1,29 +1,5 @@
 class Solution {
-//     private String intToOctel(int N){
-//         StringBuilder binary = new StringBuilder();
-// 		int n = N;
-        
-//         int count = 8; //we are looking for octel sequence
-// 		while(n > 0){
-// 		    int rem = n%2;
-// 		    binary.append(rem);
-// 		    n -= rem;
-// 		    n /= 2;
-//             if(count == 0)
-//                 break;
-//             count--;
-// 		}
-        
-//         while(count > 0){
-//             binary.append(0);
-//         }
-        
-//         binary = binary.reverse();
-        
-//         return binary.toString();
-//     }
-    
-    
+
     private int calcMSBs(int num){
         int mask = 128; // 1st bit is set only
             // 1 0 0 0 0 0 0 0 
