@@ -16,29 +16,25 @@
 class Solution {
     private int ans;
     
-    private void findPaths(TreeNode root, HashSet<Integer> set){
+    private void findPaths(TreeNode root, int path){
         if(root == null)    return;
         //if it's a leaf node
         
-        if(set.contains(root.val)){
-            set.remove(root.val);
-        } else {
-            set.add(root.val);
-        }
+        path ^= 1 << root.val;
+        
         if(root.left == null && root.right == null){
-            if(set.size() <= 1)
+            if((path & (path-1)) == 0)
                 ans++;
             return;
         } 
         
-        findPaths(root.left, new HashSet(set));
-        findPaths(root.right, new HashSet(set));
+        findPaths(root.left, path);
+        findPaths(root.right, path);
     }
     public int pseudoPalindromicPaths (TreeNode root) {
         ans = 0;
-        HashSet<Integer> set = new HashSet<>();
-        
-        findPaths(root, set);
+
+        findPaths(root, 0);
 
         return ans;
     }
