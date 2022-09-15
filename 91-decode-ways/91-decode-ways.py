@@ -1,12 +1,11 @@
 class Solution:
-    def __init__(self):
-        self.count = 0
     def numDecodings(self, s: str) -> int:
         n = len(s)
         dp = [-1]*(n+2)
         
         dp[n+1] = 0
         dp[n] = 1
+        
         if s[n-1] == '0':
             dp[n-1] = 0
         else :
@@ -22,8 +21,6 @@ class Solution:
 # 2 1 1 0 1 1
                 
         for pos in range(n-2, -1, -1):
-            # print(pos)
-            # print(dp)
             
             if s[pos] == '0':
                 dp[pos] = 0
