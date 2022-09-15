@@ -31,10 +31,10 @@ class Solution:
                 
             oneDigit = twoDigit = 0
             
-            oneDigit = dp[pos+1] if dp[pos+1] > -1 else 0;
+            oneDigit = dp[pos+1]
             
             if s[pos] =='1' or (s[pos]=='2' and s[pos+1] in {'0','1','2','3','4','5','6'}):           
-                twoDigit = dp[pos+2] if dp[pos+2] > -1 else 0;
+                twoDigit = dp[pos+2]
             
             dp[pos] = oneDigit + twoDigit
         
