@@ -1,5 +1,6 @@
 class Solution {
-    private int tryCombinations(int i, int j, int[] nums1, int[] nums2, int[][] dp){
+    private int[][] dp;
+    private int tryCombinations(int i, int j, int[] nums1, int[] nums2){
         if(i >= nums1.length || j >= nums2.length || nums1[i] != nums2[j]){
             return 0;
         }
@@ -7,7 +8,7 @@ class Solution {
         if(dp[i][j] != -1)
             return dp[i][j];
         
-        return dp[i][j] = 1 + tryCombinations(i+1, j+1, nums1, nums2, dp);
+        return dp[i][j] = 1 + tryCombinations(i+1, j+1, nums1, nums2);
     }
     public int findLength(int[] nums1, int[] nums2) {
         int maxLen = 0;
@@ -15,14 +16,14 @@ class Solution {
         int len1 = nums1.length;
         int len2 = nums2.length;
         
-        int[][] dp = new int[len1+1][len2+1];
+        dp = new int[len1+1][len2+1];
         for(int i = 0; i<len1+1; i++){
             Arrays.fill(dp[i], -1);
         }
         
         for(int i = 0; i<len1; i++){
             for(int j = 0; j<len2; j++){
-                int len = tryCombinations(i, j, nums1, nums2, dp);
+                int len = tryCombinations(i, j, nums1, nums2);
                 maxLen = Math.max(len, maxLen);
             }
         }    
