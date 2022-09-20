@@ -1,36 +1,30 @@
 class Solution {
-    private int[][] dp;
-//     private int tryCombinations(int i, int j, int[] nums1, int[] nums2){
-//         if(i >= nums1.length || j >= nums2.length || nums1[i] != nums2[j]){
-//             return 0;
-//         }
-        
-//         if(dp[i][j] != -1)
-//             return dp[i][j];
-        
-//         return dp[i][j] = 1 + tryCombinations(i+1, j+1, nums1, nums2);
-//     }
     public int findLength(int[] nums1, int[] nums2) {
-        int maxLen = 0;
-        
         int len1 = nums1.length;
         int len2 = nums2.length;
         
-        dp = new int[len1+1][len2+1];
-        
-        for(int i = len1-1; i>=0; i--){
-            for(int j = len2-1; j>=0; j--){
-                
+        int lenMaxSubarray = 0;
+        //loop for first array
+        for(int i = 0; i<len1; i++){
+            for(int j = 0; j<len2; j++){
                 if(nums1[i] != nums2[j]){
-                    continue;    
+                    continue;
                 }
                 
-                dp[i][j] = 1 + dp[i+1][j+1];
-                
-                if(maxLen < dp[i][j])  maxLen = dp[i][j];
+                int tempi = i, tempj = j;
+                int matchedLen = 0;
+                while(tempi < len1 && tempj < len2 && nums1[tempi] == nums2[tempj]){
+                    tempi++;
+                    tempj++;
+                    matchedLen++;
+                }
+
+                if(lenMaxSubarray < matchedLen){
+                    lenMaxSubarray = matchedLen;
+                }
             }
-        }    
+        }
         
-        return maxLen;
+        return lenMaxSubarray;
     }
 }
