@@ -5,15 +5,15 @@ class Solution {
         
         int lenMaxSubarray = 0;
         //loop for first array
-        for(int i = 0; i<len1; i++){
-            for(int j = 0; j<len2; j++){
-                if(nums1[i] != nums2[j]){
-                    continue;
-                }
+        for(int i = 0; i<len1; i++){        // n = 1000, 
+            for(int j = 0; j<len2; j++){    // n * n 
+//                 if(nums1[i] != nums2[j]){
+//                     continue;
+//                 }
                 
                 int tempi = i, tempj = j;
                 int matchedLen = 0;
-                while(tempi < len1 && tempj < len2 && nums1[tempi] == nums2[tempj]){
+                while(tempi < len1 && tempj < len2 && nums1[tempi] == nums2[tempj]){        // n 
                     tempi++;
                     tempj++;
                     matchedLen++;
