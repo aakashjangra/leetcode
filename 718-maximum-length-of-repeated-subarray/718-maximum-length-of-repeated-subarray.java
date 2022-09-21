@@ -22,10 +22,9 @@ class Solution {
                 if(lenMaxSubarray < dp[i][j]){
                     lenMaxSubarray = dp[i][j];
                 }
-
             }
         }
-        
+
         return lenMaxSubarray;
     }
 }
