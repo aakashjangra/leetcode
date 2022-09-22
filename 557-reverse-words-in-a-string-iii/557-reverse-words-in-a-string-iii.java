@@ -1,22 +1,32 @@
 class Solution {
     public String reverseWords(String s) {
-        StringBuilder answer = new StringBuilder();
         int n = s.length();
+        char[] arr = s.toCharArray();
         
-        StringBuilder aWord = new StringBuilder();
-        //traversing string for every alphabet in string
-        for(int i = 0; i<n; i++){
-            char c = s.charAt(i);
-            if(c == ' '){
-                answer.append(aWord.reverse()+" ");
-                aWord = new StringBuilder();
-            } else {
-                aWord.append(c);
+        int start = 0;
+        int end = 0;
+        for(int i = 0; i<=n; i++){
+            if(i == n || arr[i] == ' '){
+                int st = start;
+                int e = end-1;  
+                start = i+1;
+                end++;
+                
+                //reversing characters from s to e
+                while(st < e){
+                    char temp = arr[st];
+                    arr[st] = arr[e];
+                    arr[e] = temp;
+                    st++;
+                    e--;
+                }
+            } 
+            else 
+            {
+                end++;
             }
         }
-        //for the last word
-        answer.append(aWord.reverse());
         
-        return answer.toString();
+        return new String(arr);
     }
 }
