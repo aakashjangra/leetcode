@@ -6,14 +6,14 @@ class Solution {
         int mod = 1000000007; //10^9 + 7
         
         for(int i = n; i>0; i--){
-            String bin = Integer.toBinaryString(i);
-            int len = bin.length();
-            for(int j = len-1; j>=0; j--){
-                int num = bin.charAt(j) - '0'; //for converting char '0' -> 0 int
+            int current = i;
+            while(current > 0){
+                int num = current&1; //for converting char '0' -> 0 int
                 
                 answer = answer%mod + num*power;
                 
                 power = (power*2)%mod;
+                current >>= 1;
             }
         }
 
