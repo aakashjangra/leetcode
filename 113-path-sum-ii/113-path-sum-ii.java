@@ -30,12 +30,12 @@ class Solution {
         traverse(root.left, sum, path, targetSum, ans);
         if(root.left != null)
             path.remove(path.size()-1);
+        
         //right subtree
         traverse(root.right, sum, path, targetSum, ans);
         if(root.right != null)
             path.remove(path.size()-1);
-        
-        // System.out.println(path);
+
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> ans = new ArrayList<>();
