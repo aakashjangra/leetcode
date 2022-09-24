@@ -22,16 +22,20 @@ class Solution {
         //if leaf node 
         if(root.left == null && root.right == null){
             if(sum == targetSum)
-                ans.add(path);
+                ans.add(new ArrayList<>(path));
             return;
         }
         
         //left subtree
-        traverse(root.left, sum, new ArrayList<>(path), targetSum, ans);
-        
+        traverse(root.left, sum, path, targetSum, ans);
+        if(root.left != null)
+            path.remove(path.size()-1);
         //right subtree
-        traverse(root.right, sum, new ArrayList<>(path), targetSum, ans);
-
+        traverse(root.right, sum, path, targetSum, ans);
+        if(root.right != null)
+            path.remove(path.size()-1);
+        
+        // System.out.println(path);
     }
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> ans = new ArrayList<>();
