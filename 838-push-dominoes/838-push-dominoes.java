@@ -35,7 +35,7 @@ class Solution {
         //if total force is +ve then domino will fall right => 'R'
         //if total force is -ve then domino will fall left => 'L'
         //else it will stand still => '.'
-        StringBuilder ans = new StringBuilder();
+        char[] ans = new char[n];
         int index = 0;
         
         for(int totalForce: forces){
@@ -46,11 +46,11 @@ class Solution {
                 current = 'L';
             }
             
-            ans.append(current);
+            ans[index] = current;
             index++;
         }
         
         
-        return ans.toString();
+        return new String(ans);
     }
 }
