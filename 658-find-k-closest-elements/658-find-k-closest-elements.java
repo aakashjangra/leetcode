@@ -1,34 +1,27 @@
 class Solution {
-    class Pair{
-        int diff;
-        int val;
-        Pair(int d, int v){
-            diff = d;
-            val = v;
-        }
-    }
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        List<Integer> ans = new ArrayList<>();
-        PriorityQueue<Pair> maxHeap = new PriorityQueue<>(
-            (a, b) -> a.diff == b.diff? b.val - a.val: b.diff - a.diff
-        );
+        List<Integer> ans = new ArrayList<>();     
+        int len = arr.length;
+
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a,b) -> a[0] < b[0] || a[0] == b[0] && a[1] < b[1]? 1: -1);
         
-        // 2 values needs to be passed in Heap and should be sorted based on first value
-        
-        for(int a: arr){
-            
-            maxHeap.add(new Pair(Math.abs(a - x), a));
-            if(maxHeap.size() > k){
-                maxHeap.poll();
+        for(int num: arr){
+            minHeap.add(new int[]{Math.abs(num-x), num});
+            if(minHeap.size() > k){
+                minHeap.poll();
             }
         }
         
-        while(maxHeap.size() > 0){
-            Pair curr = maxHeap.poll();
-            ans.add(curr.val);
+        
+        while(!minHeap.isEmpty()){
+            int[] diffAndVal = minHeap.poll();
+            //taking only num
+            
+            ans.add(diffAndVal[1]);
         }
         
         Collections.sort(ans);
+        
         return ans;
     }
 }
