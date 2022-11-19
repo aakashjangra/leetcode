@@ -129,16 +129,16 @@ class Solution
     //Function to return a list of nodes visible from the top view 
     //from left to right in Binary Tree.
     static class node{
-        int index;
+        int level;
         int data;
         node(int ind, int d){
-            index = ind;
+            level = ind;
             data = d;
         }
     }
     static void inorder(Node root, int xAxis, int level, TreeMap<Integer, node> map){
         if(root == null) return;
-        if(!(map.containsKey(xAxis) && map.get(xAxis).index < level)){
+        if(!(map.containsKey(xAxis) && map.get(xAxis).level < level)){
             map.put(xAxis, new node(level, root.data));
         } 
         inorder(root.left, xAxis-1, level+1, map);
