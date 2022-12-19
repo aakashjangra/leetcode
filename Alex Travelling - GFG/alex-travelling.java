@@ -69,7 +69,6 @@ class Solution {
             for(int[] adj: graph.get(u)){
                 int v = adj[0];
                 int cost2 = adj[1];
-                // System.out.printf("%d %d <= %d\n", cost1, cost2, cost[v]);
                 if(cost1 + cost2 <= cost[v]){
                     cost[v] = cost1 + cost2;
                     que.add(new int[]{v, cost1 + cost2});
@@ -80,7 +79,6 @@ class Solution {
         int maxMoneyForAnyCity = 0;
         //check min. money he should have, so that he can visit any city
         for(int i = 1; i<=n; i++){
-            // System.out.printf("Cost of %d: %d\n", i, cost[i]);
             if(cost[i] == Integer.MAX_VALUE){
                 return -1;
             }
