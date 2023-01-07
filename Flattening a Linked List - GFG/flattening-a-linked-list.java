@@ -153,16 +153,12 @@ class GfG
             merged = merged.bottom;
         }
         
-        while(a != null){
+        if(a != null){
             merged.bottom = a;
-            a = a.bottom;
-            merged = merged.bottom;
         }
         
-        while(b != null){
+        if(b != null){
             merged.bottom = b;
-            b = b.bottom;
-            merged = merged.bottom;
         }
         
         return ans.bottom;
