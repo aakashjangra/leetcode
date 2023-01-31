@@ -25,39 +25,23 @@ class GFG {
 
 class Solution {
     static int minRepeats(String A, String B) {
-        int ans = -1;
         
+        String rep = A;
         int n = A.length();
         int m = B.length();
+        int cnt = 1;
         
-        for(int i = 0; i<n; i++){
-            int index = i;
-            int b = 0;
-            int repetition = 1;
-            
-            while(b < m){
-                if(index == n) {
-                    //string A is repeated
-                    repetition++;
-                    index = 0;
-                }
-                
-                if(B.charAt(b) != A.charAt(index)){
-                    break;
-                }
-                
-                b++;
-                index++;
-            }
-            
-            if(b == m){
-                //we have found an ans
-                if(ans == -1 || repetition < ans){
-                    ans = repetition;
-                }
-            }
+        while(rep.length() < B.length()){
+            rep += A;
+            cnt++;
         }
         
-        return ans;
+        if(rep.indexOf(B) != -1) return cnt;
+        //to be sure adding 1 more repetition
+        rep += A;
+        cnt++;
+        if(rep.indexOf(B) != -1) return cnt;
+        
+        return -1;
     }
 };
