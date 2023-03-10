@@ -36,8 +36,7 @@ class Solution {
             }
         }
         
-        // System.out.println(min + " " + sMin  + " " + max  + " " + sMax  + " " + tMax);
-        //check 2 neg * pos or 3 pos / last 3
+        //check 2 smallest * biggest or 3 biggest
         Long withNeg = min * sMin * max; //2 neg * pos
         Long biggestThree = max * sMax * tMax; //3 pos or last 3
         
