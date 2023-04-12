@@ -57,19 +57,14 @@ class GFG {
 
 class Solution {
     public static int dominantPairs(int n, int[] arr) {
-        //sort and store val->index in map
+        //sorting half-half array (to maintain index condition) and using BS to search for valid number and adding that and valid numbers smaller than that into ans...
         int mid = n/2;
         Arrays.sort(arr, 0, mid);
         Arrays.sort(arr, mid, n);
         int ans = 0;
         
-        for(int a: arr){
-            // System.out.println(a);
-        }
-        
         for(int i = mid-1; i>=0; i--){
             int index = bs(i, n, arr);
-            // System.out.println("index-> "+index);
             if(index == -1){
                 break;
             } else {
