@@ -21,41 +21,13 @@ class Main {
 class Solution {
 
     void printSquare(int n) {
-        int limit = (n*2 - 1)/2 + 1;
-        int[][] pat = new int[limit][limit];
-        int i = 0;
-        int num = n;
-        // upper left part
-        while(i < limit){
-            for(int h = i; h < limit; h++){
-                pat[i][h] = num;
-                pat[h][i] = num;
+        int limit = 2*n;
+        for(int r = 1; r < limit; r++){
+            for(int c = 1; c < limit; c++){
+                int toPrint = n - Math.min(Math.min(r,c), Math.min(limit-r, limit-c)) + 1;
+                System.out.print(toPrint+" ");
             }
-            num--;
-            i++;
-        }
-        
-        for(i = 0; i<limit; i++){
-            for(int j = 0; j<limit; j++){
-                System.out.print(pat[i][j]+" ");
-            }
-            for(int j = limit-2; j>=0; j--){
-                System.out.print(pat[i][j]+" ");
-            }
-            
             System.out.println();
         }
-        
-        for(i = limit-2; i>=0; i--){
-            for(int j = 0; j<limit; j++){
-                System.out.print(pat[i][j]+" ");
-            }
-            for(int j = limit-2; j>=0; j--){
-                System.out.print(pat[i][j]+" ");
-            }
-            
-            System.out.println();
-        }
-
     }
 }
