@@ -67,7 +67,6 @@ class Solution {
             }
         }
         
-        //-1 to remove 0th node
         return provinces;
     }
 };
