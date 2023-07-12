@@ -36,31 +36,28 @@ class Solution {
     // Function to detect cycle in an undirected graph.
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         int[] vis = new int[V];
-        Queue<int[]> bfs = new LinkedList<>();
         
         for(int i = 0; i<V; i++){
             if(vis[i] == 1) continue;
-            bfs.add(new int[]{i, -1});
-            vis[i] = 1;
             
-            while(!bfs.isEmpty()){
-                int n = bfs.size();
-                while(n-- > 0){
-                    int[] cur = bfs.poll();
-                    int node = cur[0], parent = cur[1];
-                    for(int adjacent: adj.get(node)){
-                        if(vis[adjacent] == 0){ //not visited
-                            bfs.add(new int[]{adjacent, node});
-                            vis[adjacent] = 1;
-                        } else if(parent != adjacent){
-                            //if they form a cycle
-                            return true;
-                        }
-                    }
-                }
+            if(dfs(i, -1, adj, vis)) return true;
+        }
+        
+        return false;
+    }
+    public boolean dfs(int node, int parent, ArrayList<ArrayList<Integer>> adjacent, int[] vis){
+        if(vis[node] == 1) return false;
+        vis[node] = 1;
+        
+        for(int adj: adjacent.get(node)){
+            if(vis[adj] == 0){
+                //not visited
+                if(dfs(adj, node, adjacent, vis)) return true;
+            } else if(adj != parent){
+                //if node is visited and parent and adj are same
+                return true;
             }
         }
-       
         
         return false;
     }
