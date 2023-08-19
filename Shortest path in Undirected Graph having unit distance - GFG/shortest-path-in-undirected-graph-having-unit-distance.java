@@ -41,24 +41,23 @@ class Solution {
             adjList.get(v).add(u);
         }
         
-        Queue<int[]> q = new LinkedList<>();
+        Queue<Integer> q = new LinkedList<>();
         //int[] -> {node, dist to reach this node}
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
         
         dist[src] = 0;
-        q.add(new int[]{src, 0});
+        q.add(src);
         
         while(q.size() > 0){
             int size = q.size();
             while(size-- > 0){
-                int[] arr = q.poll();
-                int cur = arr[0], d = arr[1];
+                int cur = q.poll();
                 
                 for(int adj: adjList.get(cur)){
-                    if(d + 1 < dist[adj]){
-                        dist[adj] = d+1;
-                        q.add(new int[]{adj, d+1});
+                    if(dist[cur] + 1 < dist[adj]){
+                        dist[adj] = dist[cur] + 1;
+                        q.add(adj);
                     }
                 }
             }
