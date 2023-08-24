@@ -35,11 +35,9 @@ class Solution {
     static class Custom{
         int node;
         int distance;
-        List<Integer> path;
-        public Custom(int n, int d, List<Integer> p){
+        public Custom(int n, int d){
             this.node = n;
             this.distance = d;
-            this.path = p;
         }
     }
     public static List<Integer> shortestPath(int n, int m, int edges[][]) {
@@ -53,16 +51,13 @@ class Solution {
         
         PriorityQueue<Custom> pq = new PriorityQueue<>((a,b) -> a.distance != b.distance? a.distance - b.distance: a.node - b.node);
         int[] dist = new int[n+1];
+        int[] parent = new int[n+1];
         Arrays.fill(dist, Integer.MAX_VALUE);
         
         //shortest path from 1 -> n
-        List<Integer> initial = new ArrayList<>();
-        initial.add(1);
-        pq.add(new Custom(1, 0, initial));
+        pq.add(new Custom(1, 0));
         dist[1] = 0;
-        
-        List<Integer> ansPath = new ArrayList<>();
-        ansPath.add(-1); // if no shortest path found, we return this
+        parent[1] = 1;
         
         while(!pq.isEmpty()){
             int size = pq.size();
@@ -71,18 +66,28 @@ class Solution {
                 for(int[] adjArr: adjList.get(cur.node)){
                     int adj = adjArr[0], d = adjArr[1];
                     if(cur.distance + d < dist[adj]){
-                        List<Integer> path = new ArrayList<>(cur.path);
-                        path.add(adj);
-                        pq.add(new Custom(adj, cur.distance + d, path));
+                        pq.add(new Custom(adj, cur.distance + d));
                         dist[adj] = cur.distance + d;
-                        if(adj == n){
-                            //store this path as ans
-                            ansPath = path;
-                        }
+                        parent[adj] = cur.node;
                     }
                 }
             }
         }
+        
+        List<Integer> ansPath = new ArrayList<>();
+        
+        if(dist[n] == Integer.MAX_VALUE)
+            ansPath.add(-1); // if no shortest path found, we return this
+        else {
+            int node = n;
+            ansPath.add(node);
+            while(node != parent[node]){
+                node = parent[node];
+                ansPath.add(node);
+            }
+        }
+        
+        Collections.reverse(ansPath);
         
         return ansPath;
     }
