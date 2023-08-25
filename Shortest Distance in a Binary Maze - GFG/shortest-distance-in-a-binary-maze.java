@@ -46,8 +46,11 @@ class GFG {
 class Solution {
 
     int shortestPath(int[][] grid, int[] source, int[] destination) {
+        if(source[0] == destination[0] && source[1] == destination[1]) return 0;
+        
         int n = grid.length, m = grid[0].length;
-        int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[] dr = {0, 0, -1, 1};
+        int[] dc = {1, -1, 0, 0};
         // [] -> {dist, row, col}
         PriorityQueue<int[]> q = new PriorityQueue<>((a,b) -> Integer.compare(a[0], b[0]));
         int[][] dist = new int[n][m]; //this will store, dist from source to a particular cell
@@ -61,30 +64,24 @@ class Solution {
             boolean found = false;
             while(size-- > 0){
                 int[] cur = q.poll();
-                int d = cur[0], i = cur[1], j = cur[2];
+                int d = cur[0], x = cur[1], y = cur[2];
                 
-                if(i == destination[0] && j == destination[1]){
-                    found = true;
-                    break;
-                };
-                
-                for(int[] dir: dirs){
-                    int r = i+dir[0], c = j+dir[1];
+                //in 4 directions
+                for(int i = 0; i<4; i++){
+                    int r = x+dr[i], c = y+dc[i];
                     if(r < 0 || c < 0 || r >= n || c >= m || grid[r][c] == 0) {
                         //invalid indices, continue to next one
                         continue;
                     }
+                    if(r == destination[0] && c == destination[1]) return d + 1; //ans
                     if(dist[r][c] > d+1){
                         q.add(new int[]{d+1, r, c});
                         dist[r][c] = d+1;
                     }
                 }
             }
-            
-            if(found) break;
         }
         
-        int dr = destination[0], dc = destination[1];
-        return dist[dr][dc] == Integer.MAX_VALUE? -1: dist[dr][dc];
+        return -1;
     }
 }
