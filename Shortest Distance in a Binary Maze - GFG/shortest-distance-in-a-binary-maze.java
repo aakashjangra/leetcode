@@ -45,39 +45,46 @@ class GFG {
 
 class Solution {
 
-    int shortestPath(int[][] grid, int[] source, int[] dest) {
+    int shortestPath(int[][] grid, int[] source, int[] destination) {
         int n = grid.length, m = grid[0].length;
         int[][] dirs = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        Queue<int[]> q = new LinkedList<>();
-        int[][] vis = new int[n][m];
-        q.add(source);
-        vis[source[0]][source[1]] = 1;
+        // [] -> {dist, row, col}
+        PriorityQueue<int[]> q = new PriorityQueue<>((a,b) -> Integer.compare(a[0], b[0]));
+        int[][] dist = new int[n][m]; //this will store, dist from source to a particular cell
+        for(int[] row: dist) Arrays.fill(row, Integer.MAX_VALUE); //initializing with max. value
+
+        q.add(new int[]{0, source[0], source[1]});
+        dist[source[0]][source[1]] = 0;
         
-        int distance = 0;
         while(!q.isEmpty()){
             int size = q.size();
+            boolean found = false;
             while(size-- > 0){
                 int[] cur = q.poll();
-                int i = cur[0], j = cur[1];
+                int d = cur[0], i = cur[1], j = cur[2];
                 
-                if(i == dest[0] && j == dest[1]) return distance;
+                if(i == destination[0] && j == destination[1]){
+                    found = true;
+                    break;
+                };
                 
                 for(int[] dir: dirs){
                     int r = i+dir[0], c = j+dir[1];
-                    if(r < 0 || c < 0 || r >= n || c >= m) {
+                    if(r < 0 || c < 0 || r >= n || c >= m || grid[r][c] == 0) {
                         //invalid indices, continue to next one
                         continue;
                     }
-                    if(vis[r][c] == 0 && grid[r][c] == 1){
-                        q.add(new int[]{r,c});
-                        vis[r][c] = 1;
+                    if(dist[r][c] > d+1){
+                        q.add(new int[]{d+1, r, c});
+                        dist[r][c] = d+1;
                     }
                 }
             }
             
-            distance++;
+            if(found) break;
         }
         
-        return -1;
+        int dr = destination[0], dc = destination[1];
+        return dist[dr][dc] == Integer.MAX_VALUE? -1: dist[dr][dc];
     }
 }
