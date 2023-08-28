@@ -39,49 +39,33 @@ class Solution {
             adjList.get(u).add(new int[]{v, price});
         }
         
-        int[][] cheapest = new int[n][n]; //cheapest[i][j] = price for going to j with i stops
-        for(int []arr: cheapest) Arrays.fill(arr, Integer.MAX_VALUE);
+        int[] cheapest = new int[n];
+        Arrays.fill(cheapest, Integer.MAX_VALUE);
         //[] -> {node, stops, cost} 
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{src, 0, 0});
-        cheapest[0][src] = 0;
+        cheapest[src] = 0;
         
         while(!q.isEmpty()){
             int size = q.size();
-            boolean flag = false;
             while(size-- > 0){
                 int[] cur = q.poll();
                 int node = cur[0], stops = cur[1], amount = cur[2];
                 
-                if(node == dst){
-                    if(stops == k+1){
-                        flag = true; //search for this level only
-                    }
-                    continue;
-                }
-                
-                if(stops == k+1) continue; //skip, not applicable
+                if(stops > k) continue; //skip, not applicable
                 
                 for(int[] adjPair: adjList.get(node)){
                     int adj = adjPair[0], price = adjPair[1];
-                    
-                    if(amount + price <= cheapest[stops+1][adj]){
+                    int newCost = amount + price;
+                    if(newCost < cheapest[adj]){
                         q.add(new int[]{adj, stops+1, amount+price});
-                        cheapest[stops+1][adj] = amount+price;
+                        cheapest[adj] = amount+price;
                     }
-                    
                 }
             }
-            
-            if(flag) break;
         }
         
-        int ans = Integer.MAX_VALUE;
-        //k + 1, for 1 destination added
-        for(int i = 0; i<n; i++){
-            ans = Math.min(ans, cheapest[i][dst]);
-        }
-        
-        return ans == Integer.MAX_VALUE? -1: ans;
+        if(cheapest[dst] == Integer.MAX_VALUE) return -1;
+        return cheapest[dst];
     }
 }
