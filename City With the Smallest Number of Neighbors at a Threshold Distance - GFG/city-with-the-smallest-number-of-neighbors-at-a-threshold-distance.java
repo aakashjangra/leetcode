@@ -47,7 +47,7 @@ class Solution {
     }
     int findCity(int n, int m, int[][] edges,int distanceThreshold)
     {
-        List<List<Pair>> adjList = new ArrayList<>(); //sc -> V * E
+        List<List<Pair>> adjList = new ArrayList<>(); //sc -> V^2
         for(int i = 0; i<n; i++) adjList.add(new ArrayList<>());
         for(int[] edge: edges){
             //bidirectional
