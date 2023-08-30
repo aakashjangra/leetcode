@@ -47,17 +47,18 @@ class Solution {
     }
     int findCity(int n, int m, int[][] edges,int distanceThreshold)
     {
-        List<List<Pair>> adjList = new ArrayList<>();
+        List<List<Pair>> adjList = new ArrayList<>(); //sc -> V * E
         for(int i = 0; i<n; i++) adjList.add(new ArrayList<>());
         for(int[] edge: edges){
             //bidirectional
             adjList.get(edge[0]).add(new Pair(edge[1], edge[2]));
             adjList.get(edge[1]).add(new Pair(edge[0], edge[2]));
         }
-        
-        int[] citiesReachable = new int[n];
 
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> a.d - b.d);
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b) -> a.d - b.d); //sc -> V
+        int city = 0;
+        int cities = Integer.MAX_VALUE;
+        //tc = V * (E*logV + V) => V^2 + EVlogV
         for(int i = 0; i<n; i++){
             //find shortest dist from every node
             int[] dist = new int[n];
@@ -65,6 +66,7 @@ class Solution {
             pq.add(new Pair(i, 0));
             dist[i] = 0;
             
+            //tc - E * logV
             while(!pq.isEmpty()){
                 Pair curP = pq.poll();
                 int cur = curP.node, d = curP.d;
@@ -77,26 +79,20 @@ class Solution {
                 }
             }
             
+                //calculating city with minCities reachable in threshold
             //count cities reachable
-            int cities = 0;
+            int citiesReachable = 0;
             for(int j = 0; j<n; j++){
                 if(i != j && dist[j] != Integer.MAX_VALUE){
-                    cities++;
+                    citiesReachable++;
                 }
             }
-            citiesReachable[i] = cities;
-        }  
-        
-        //calculating city with minCities reachable in threshold
-        int city = 0;
-        int cities = Integer.MAX_VALUE;
-        for(int i = 0; i<n; i++){
-            if(citiesReachable[i] <= cities){
+            if(citiesReachable <= cities){
                 city = i;
-                cities = citiesReachable[i];
+                cities = citiesReachable;
             }
-        } 
-        
+        }  
+
         return city;
     }
 }
