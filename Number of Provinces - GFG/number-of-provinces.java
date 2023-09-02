@@ -32,40 +32,55 @@ class GFG {
 //User function Template for Java
 
 class Solution {
-    static int numProvinces(ArrayList<ArrayList<Integer>> adjMatrix, int V) {
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for(int i = 0; i<V; i++) adj.add(new ArrayList<>());
+    static class DisjointSet{
+        List<Integer> rank = new ArrayList<>();
+        List<Integer> parent = new ArrayList<>();
+        public DisjointSet(int n){
+            for(int i = 0; i<=n; i++){
+                rank.add(0);
+                parent.add(i);
+            }
+        }
+        public int findUPar(int node){
+            if(node == parent.get(node)){
+                return node;
+            }
+            int par = findUPar(parent.get(node));
+            parent.set(node, par);
+            return par;
+        }
+        public void unionByRank(int u, int v){
+            int ulp_u = findUPar(u);
+            int ulp_v = findUPar(v);
+            if(ulp_u == ulp_v) return;
+            if(rank.get(ulp_u) == rank.get(ulp_v)){
+                parent.set(ulp_u, ulp_v);
+                rank.set(ulp_v, rank.get(ulp_v) + 1);
+            } else if(rank.get(ulp_u) < rank.get(ulp_v)){
+                parent.set(ulp_u, ulp_v);
+            } else if(rank.get(ulp_v) < rank.get(ulp_u)){
+                parent.set(ulp_v, ulp_u);
+            }
+        }
+    }
+    static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+        DisjointSet ds = new DisjointSet(V);
         
         for(int i = 0; i<V; i++){
             for(int j = 0; j<V; j++){
-                if(adjMatrix.get(i).get(j) == 1){
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
+                if(adj.get(i).get(j) == 1){
+                    //edge
+                    ds.unionByRank(i, j);
                 }
             }
         }
         
-        int[] vis = new int[V];
-        Queue<Integer> q = new LinkedList<>();
         int provinces = 0;
-        for(int i = 0; i < V; i++){
-            if(vis[i] == 1){
-                //if visited, skip
-                continue;
+        for(int i = 0; i<V; i++){
+            if(i == ds.parent.get(i)){
+                provinces++;
             }
-            provinces++;
-            q.add(i);
-            vis[i] = 1;
-            while(!q.isEmpty()){
-                int cur = q.poll();
-                for(int adjacents: adj.get(cur)){
-                    if(vis[adjacents] == 0){
-                        q.add(adjacents);
-                        vis[adjacents] = 1;
-                    }
-                }
-            }
-        }
+        } 
         
         return provinces;
     }
