@@ -33,36 +33,25 @@ class GFG {
 
 // User function Template for Java
 
-
-
-// User function Template for Java
-
 class Solution {
     int minimumMultiplications(int[] arr, int start, int end) {
-        if(start == end) return 0;
+        int[] steps = new int[(int)1e5];
+        Arrays.fill(steps, Integer.MAX_VALUE);
+        steps[start] = 0;
         
-        int mod = 100000;
-        int[] dist = new int[mod];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        //int[] -> {node, steps}
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{start, 0});
-        dist[start] = 0;
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
         
         while(!q.isEmpty()){
-            int size = q.size();
-            while(size-- > 0){
-                int[] curPair = q.poll();
-                int cur = curPair[0], steps = curPair[1];
-                
-                for(int a: arr){
-                    int num = (cur * a) % mod;
-                    if(steps+1 < dist[num]){
-                        if(num == end) return steps+1;
-                        
-                        q.add(new int[]{num, steps+1}); 
-                        dist[num] = steps+1; 
-                    } 
+            int cur = q.poll();
+            if(cur == end) return steps[cur];
+            
+            int newSteps = steps[cur] + 1;
+            for(int m: arr){
+                int num = (cur * m) % (int)(1e5);
+                if(newSteps < steps[num]){
+                    steps[num] = newSteps;
+                    q.add(num);
                 }
             }
         }
